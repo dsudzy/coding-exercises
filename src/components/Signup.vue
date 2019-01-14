@@ -29,56 +29,10 @@
   </div>
 </template>
 
-<style lang="scss">
-.error {
-  color: red;
-  font-size: .7rem;
-}
-</style>
-
 <script>
-    export default {
-        data() {
-            return {
-                email: null,
-                password: null,
-                errors: {
-                  email: false,
-                  password: false
-                }
-            };
-        },
-        mounted() {
-          console.log('login');
-        },
-        methods: {
-            login(e) {
-              e.preventDefault();
-              if(!this.validateForm()) {
-                return false;
-              }
-              this.submitForm();
-            },
-            submitForm() {
-
-            },
-            validateForm() {
-              let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-              if(!this.password || this.password.length < 6) {
-                this.errors.password = true;
-              } else {
-                this.errors.password = false;
-              }
-              if(!this.email || !re.test(this.email)) {
-                this.errors.email = true;
-              } else {
-                this.errors.email = false;
-              }
-              if(!this.errors.email && !this.errors.password) {
-                return true;
-              }
-              return false;
-            }
-        }
-    }
+  export default {
+      mounted() {
+        console.log('signup');
+      }
+  }
 </script>

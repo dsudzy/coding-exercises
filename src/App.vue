@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Login></Login>
+    <h2>app</h2>
+    <router-view/>
   </div>
 </template>
 
@@ -11,10 +12,16 @@ h1 {
 </style>
 
 <script>
-import Login from './components/Login.vue';
+import Dashboard from './components/Dashboard.vue';
+import router from './router';
 export default {
     components: {
-       Login 
+       Dashboard 
+    },
+    mounted() {
+        console.log('ere');
+        // if there is no user in vuex store pass over to /login
+        router.push("/login")
     }
 }
 </script>

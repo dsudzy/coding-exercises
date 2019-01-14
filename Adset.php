@@ -1,11 +1,6 @@
 <?php
 
-require('Api.php');
-
-/**
- * 
- */
-class AdsetApi extends Api
+class Adset
 {
     private $geo_locations_frequency;
     private $locations_map = [
@@ -14,11 +9,6 @@ class AdsetApi extends Api
         'zip' => [],
         'geo_market' => [],
     ];
-
-    function __construct($limit = 5)
-    {
-        $this->getTopLocations($limit);
-    }
 
     /**
      * gets top used geo locations
@@ -30,8 +20,7 @@ class AdsetApi extends Api
     {
         $adset_data = $this->getAdsetData();
         $this->populateGeoLocationFrequency($adset_data);
-        $results = $this->buildTopLocationsArray($limit);
-        $this->httpOkResponse($results);
+        return $this->buildTopLocationsArray($limit);
     }
 
     /**

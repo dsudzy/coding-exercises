@@ -5,6 +5,7 @@ import router from './router'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+window.axios = require('axios');
 
 Vue.use(BootstrapVue);
 

@@ -22,7 +22,12 @@ export default {
     },
     methods: {
       logout() {
-
+        axios.post('http://localhost:3000').then(function() {
+          console.log('er');
+        })
+        .catch(function (err){
+          console.log('errrr');
+        });
       }
     }
 }

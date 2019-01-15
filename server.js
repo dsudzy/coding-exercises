@@ -24,14 +24,15 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
-// mongoose.connect('mongodb://localhost/local', { useNewUrlParser: true });
-// mongoose.set('debug', true);
+mongoose.connect('mongodb://localhost/hcs', { useNewUrlParser: true });
+mongoose.set('debug', true);
 
 require('./models/Users');
 require('./config/passport');
 app.use(require('./routes'));
 
+var port = 3000;
 
-app.listen(3000, function() {
-    console.log('Server running on http://localhost:3000/');
+app.listen(port, function() {
+    console.log('Server running on http://localhost:' + port + '/');
 });

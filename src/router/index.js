@@ -10,8 +10,7 @@ const router = new Router({
             name: 'Home',
             component: require('../components/Home.vue').default,
             meta: {
-                // requiresAuth: true
-                guest: true
+                requiresAuth: true
             }
         },
         {

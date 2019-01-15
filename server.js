@@ -1,17 +1,24 @@
+require('dotenv').config()
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+
+
+// @TODO am I using this?
 const cors = require('cors');
 const mongoose = require('mongoose');
 
 const app = express();
 
+// @TODO am I using this?
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// this would be in .env 
 app.use(session({
-    secret: 'NNHJK0T9/qJqCEmmm1lseunz',
+    secret: process.env.SESSION_SECRET,
     cookie: {
       maxAge: 60000
     }, resave: false,
@@ -24,15 +31,39 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
-mongoose.connect('mongodb://localhost/hcs', { useNewUrlParser: true });
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 mongoose.set('debug', true);
 
 require('./models/Users');
 require('./config/passport');
 app.use(require('./routes'));
 
-var port = 3000;
+// if(!isProduction) {
+  app.use((req, res, err) => {
+    res.status(err.status || 500);
 
+    res.json({
+      errors: {
+        message: err.message,
+        error: err,
+      },
+    });
+  });
+// }
+
+app.use((req, res, err) => {
+  res.status(err.status || 500);
+
+  res.json({
+    errors: {
+      message: err.message,
+      error: {},
+    },
+  });
+});
+
+
+var port = process.env.PORT || 3000;
 app.listen(port, function() {
-    console.log('Server running on http://localhost:' + port + '/');
+    console.log('Server running on ' + process.env.APP_URL + ':' + port + '/');
 });

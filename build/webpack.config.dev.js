@@ -13,6 +13,9 @@ module.exports = {
       poll: true
     }
   },
+  node: {
+    fs: 'empty'
+  },
   module: {
     rules: [
       {

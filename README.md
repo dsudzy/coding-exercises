@@ -3,5 +3,5 @@
 
 ## run migrate-mongo in /migrations
 `migrate-mongo up`
-
+* username is humancare
 * password is hcs2019

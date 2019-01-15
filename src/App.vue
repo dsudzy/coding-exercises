@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h2>app</h2>
+    <button @click="logout" class="btn btn-link">Logout</button>
     <router-view/>
   </div>
 </template>
@@ -12,16 +12,18 @@ h1 {
 </style>
 
 <script>
-import Dashboard from './components/Dashboard.vue';
+import Home from './components/Home.vue';
 import router from './router';
 export default {
     components: {
-       Dashboard 
+       Home
     },
     mounted() {
-        console.log('ere');
-        // if there is no user in vuex store pass over to /login
-        router.push("/login")
+    },
+    methods: {
+      logout() {
+
+      }
     }
 }
 </script>

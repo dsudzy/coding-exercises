@@ -24,8 +24,8 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
-mongoose.connect('mongodb://localhost/local', { useNewUrlParser: true });
-mongoose.set('debug', true);
+// mongoose.connect('mongodb://localhost/local', { useNewUrlParser: true });
+// mongoose.set('debug', true);
 
 require('./models/Users');
 require('./config/passport');

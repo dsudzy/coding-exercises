@@ -53,7 +53,6 @@
             };
         },
         mounted() {
-          console.log('login');
         },
         methods: {
             login(e) {
@@ -72,7 +71,7 @@
                 }
               })
               .then((response) => {
-                console.log(response);
+                localStorage.setItem('jwt', response.data.user.token)
                 this.errors.login = false;
               })
               .catch((error) => {

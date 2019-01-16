@@ -5,7 +5,6 @@ const auth = require('../auth');
 const Users = mongoose.model('Users');
 const _ = require('lodash');
 
-//POST login route (optional, everyone has access)
 router.post('/login', auth.optional, (req, res, next) => {
   
   const { body: { user } } = req;
@@ -41,7 +40,13 @@ router.post('/login', auth.optional, (req, res, next) => {
   })(req, res, next);
 });
 
-router.post('/tasks', auth.optional, (req, res, next) => {
+router.get('/tasks', auth.required, (req, res, next) => {
+  Users.findOne({_id: req.query.id},function(err, user){
+    return res.json({ tasks: user.tasks });
+  });
+});
+
+router.post('/tasks', auth.required, (req, res, next) => {
    Users.findById(req.body.user, function (err, user) {
     if (!err) {
       if(!user.tasks) {
@@ -55,20 +60,7 @@ router.post('/tasks', auth.optional, (req, res, next) => {
   });
 });
 
-router.patch('/tasks/delete', auth.optional, (req, res, next) => {
-  Users.findById(req.body.user, function (err, user) {
-    if (!err) {
-      user.tasks = _.reject(user.tasks, (task) => {
-        return task._id == req.body.id;
-      });
-      user.save(function (err) {
-        return res.json({tasks: user.tasks});
-      });
-    }
-  });
-});
-
-router.patch('/tasks/update', auth.optional, (req, res, next) => {
+router.patch('/tasks/update', auth.required, (req, res, next) => {
   Users.findById(req.body.user, function (err, user) {
     if (!err) {
       _.forEach(user.tasks, function(item) {
@@ -83,10 +75,16 @@ router.patch('/tasks/update', auth.optional, (req, res, next) => {
   });
 });
 
-//GET current route (required, only authenticated users have access)
-router.get('/tasks', auth.optional, (req, res, next) => {
-  Users.findOne({_id: req.query.id},function(err, user){
-    return res.json({ tasks: user.tasks });
+router.patch('/tasks/delete', auth.required, (req, res, next) => {
+  Users.findById(req.body.user, function (err, user) {
+    if (!err) {
+      user.tasks = _.reject(user.tasks, (task) => {
+        return task._id == req.body.id;
+      });
+      user.save(function (err) {
+        return res.json({tasks: user.tasks});
+      });
+    }
   });
 });
 

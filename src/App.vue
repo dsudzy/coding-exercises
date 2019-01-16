@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <button @click="logout" class="btn btn-link">Logout</button>
+    <button @click="logout" class="btn btn-link" v-if="isAuthenticated">Logout</button>
     <router-view/>
   </div>
 </template>
@@ -21,9 +21,14 @@ export default {
     mounted() {
     },
     methods: {
-      logout: function () {
+      logout() {
         localStorage.removeItem('jwt')
         router.push('/login')
+      }
+    },
+    computed: {
+      isAuthenticated() {
+        return localStorage.getItem('jwt') !== null;
       }
     }
 }

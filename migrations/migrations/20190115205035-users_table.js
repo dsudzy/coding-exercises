@@ -18,6 +18,5 @@ module.exports = {
     );
   },
   down(db) {
-    //@TODO add down function
   }
 };

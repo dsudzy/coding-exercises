@@ -59,7 +59,6 @@
               this.submitForm();
             },
             submitForm() {
-              // @TODO I think I need to bcrypt before sending it over
               axios.post('/api/login', {
                 user: {
                   username: this.username,
@@ -75,7 +74,6 @@
               })
               .catch((error) => {
                 console.log('bad response');
-                // @TODO response should come from backend
                 this.errors.login = true;
               });
             },

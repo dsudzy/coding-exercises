@@ -13,7 +13,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// this would be in .env 
 app.use(session({
     secret: process.env.SESSION_SECRET,
     cookie: {
@@ -34,19 +33,6 @@ mongoose.set('debug', true);
 require('./models/Users');
 require('./config/passport');
 app.use(require('./routes'));
-
-// if(!isProduction) {
-  app.use((req, res, err) => {
-    res.status(err.status || 500);
-
-    res.json({
-      errors: {
-        message: err.message,
-        error: err,
-      },
-    });
-  });
-// }
 
 app.use((req, res, err) => {
   res.status(err.status || 500);

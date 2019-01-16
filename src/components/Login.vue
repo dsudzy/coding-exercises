@@ -71,6 +71,7 @@
                 localStorage.setItem('jwt', response.data.user.token)
                 localStorage.setItem('user', JSON.stringify(response.data.user))
                 this.errors.login = false;
+                window.location = '/';
               })
               .catch((error) => {
                 console.log('bad response');

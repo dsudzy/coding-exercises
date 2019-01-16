@@ -15,9 +15,9 @@
             <span class="delete" @click="deleteTask(task._id)">x</span>
             <span class="edit" @click="toggleUpdate">edit</span>
           </template>
-          <template v-if="showUpdate == key">
+          <template v-if="showUpdate">
             <input type="text" v-model="updateTaskValue">
-            <button @click="saveUpdate(task.id)">Save</button>
+            <button @click="saveUpdate(task.id)">update</button>
             <span @click="toggleUpdate(key)">x</span>
           </template>
         </li>
@@ -60,12 +60,10 @@ export default {
   },
   methods: {
     getTasks() {
-      // console.log(this.user);
       axios.get('/api/tasks?id=' + this.user._id)
       .then((response) => {
         if(response.data.tasks.length > 0) {
           this.tasks = response.data.tasks;
-          
         }
       });
     },
@@ -91,16 +89,12 @@ export default {
       });
     },
     toggleUpdate(key) {
-      console.log(key);
-      // if(index.length > 0) {
-      //   this.showUpdate = index;
-      // } else {
-      //   this.showUpdate = false;
-      // }
+      this.showUpdate = !this.showUpdate;
     },
     saveUpdate() {
-      // axios.post('/', this.updateTaskValue)
-      // .the
+      // axios.patch('/api/tasks/update', {task: this.updateTaskValue})
+      // .then((response) => {
+      // })
     }
   }
 }

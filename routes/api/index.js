@@ -68,6 +68,19 @@ router.patch('/tasks/delete', auth.optional, (req, res, next) => {
   });
 });
 
+router.patch('/tasks/update', auth.optional, (req, res, next) => {
+  Users.findById(req.body.user, function (err, user) {
+    if (!err) {
+      user.tasks = _.reject(user.tasks, (task) => {
+        return task._id == req.body.id;
+      });
+      user.save(function (err) {
+        return res.json({tasks: user.tasks});
+      });
+    }
+  });
+});
+
 //GET current route (required, only authenticated users have access)
 router.get('/tasks', auth.optional, (req, res, next) => {
   Users.findOne({_id: req.query.id},function(err, user){

@@ -71,8 +71,10 @@ router.patch('/tasks/delete', auth.optional, (req, res, next) => {
 router.patch('/tasks/update', auth.optional, (req, res, next) => {
   Users.findById(req.body.user, function (err, user) {
     if (!err) {
-      user.tasks = _.reject(user.tasks, (task) => {
-        return task._id == req.body.id;
+      _.forEach(user.tasks, function(item) {
+        if(item._id == req.body.id) {
+          item.task = req.body.task
+        }
       });
       user.save(function (err) {
         return res.json({tasks: user.tasks});

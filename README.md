@@ -6,8 +6,8 @@
 3. edit migrations/migrate-mongo-config.js to point to your mongo url
 4. install migrate-mongo globally `npm install -g migrate-mongo`
 5. cd into migrations and run `migrate-mongo up`
-6. run `yarn build`
-7. run `yarn start`
+6. run `yarn build` to compile the javascript
+7. run `yarn start` to start node server
 
 ## instructions
 

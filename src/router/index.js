@@ -29,33 +29,24 @@ router.beforeEach((to, from, next) => {
         if (localStorage.getItem('jwt') == null) {
             next({
                 path: '/login',
-                params: { nextUrl: to.fullPath }
+                params: { nextUrl: '/' }
             })
         } else {
-            console.log('found jwt');
-            // let user = JSON.parse(localStorage.getItem('user'))
-            // if (to.matched.some(record => record.meta.is_admin)) {
-            //     if (user.is_admin == 1) {
-            //         next();
-            //     } else {
-            //         next({ name: 'userboard'});
-            //     }
-            // } else {
+            next()
+        }
+    } else if(to.matched.some(record => record.meta.guest)) {
+        if (localStorage.getItem('jwt') == null){
+            next()
+        } else if (to.fullPath == '/login') {
             next({
                 path: '/',
-                params: {}
-            });
-            // }
-        }
-    } else if (to.matched.some(record => record.meta.guest)) {
-        if (localStorage.getItem('jwt') == null) {
-            next();
+            })
         } else {
-            next();
+            next()
         }
     } else {
-        next();
+        next() 
     }
-});
+})
 
 export default router

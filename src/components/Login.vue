@@ -16,10 +16,6 @@
                 <input type="password" id="input-password" class="form-control" placeholder="Password" v-model="password">
                 <span class="error" v-if="errors.password">*You must enter a valid password</span>
               </div>
-              <div class="custom-control custom-checkbox mb-3">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">Remember password</label>
-              </div>
               <div>
                 <span class="error" v-if="errors.login">*The username and password combination do not match our records</span>
               </div>
@@ -73,6 +69,7 @@
               .then((response) => {
                 console.log('good response');
                 localStorage.setItem('jwt', response.data.user.token)
+                localStorage.setItem('user', JSON.stringify(response.data.user))
                 this.errors.login = false;
               })
               .catch((error) => {

@@ -8,6 +8,17 @@ const UsersSchema = new Schema({
     username: String,
     password: String,
     salt: String,
+    companyName: String,
+    address: String,
+    suite: String,
+    city: String,
+    state: String,
+    zip: String,
+    tasks: [
+      {
+        task: String
+      }
+    ]
 });
 
 UsersSchema.methods.validatePassword = function(password) {
@@ -32,6 +43,13 @@ UsersSchema.methods.toAuthJSON = function() {
     _id: this._id,
     username: this.username,
     token: this.generateJWT(),
+    companyName: this.companyName,
+    address: this.address,
+    suite: this.suite,
+    city: this.city,
+    state: this.state,
+    zip: this.zip,
+    task: this.tasks
   };
 };
 

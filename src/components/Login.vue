@@ -74,7 +74,6 @@
                 console.log('good response');
                 localStorage.setItem('jwt', response.data.user.token)
                 this.errors.login = false;
-                window.location = '/';
               })
               .catch((error) => {
                 console.log('bad response');
